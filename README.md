@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHẠM HOÀ - DIGITAL SOLUTIONS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Cài đặt chung */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #fff;
+            overflow: hidden; /* Ngăn cuộn giả */
+            position: relative;
+        }
+
+        /* Nền phức tạp để khớp với mẫu */
+        .background-layers {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Lớp nền tối chính */
+            background: radial-gradient(circle at center, #1a233a 0%, #0b0f19 100%);
+        }
+
+        /* Lưới hình cầu vector phát sáng và biểu đồ phổ (Mô phỏng bằng SVG vector) */
+        .background-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.7;
+            background-image: 
+                url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiB2aWV3Qm94PSIwIDAgNTAwIDUwMCI+CiAgPGRlZnM+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9ImdyaWRHcmFkIiBjeD0iNTAiIGN5PSI1MCIgcj0iNTAiIGZ4PSI1MCIgZnk9IjUwIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0icmdiYSgxMDAsIDEwMCwgMjU1LCAwLjI1KSIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUigc3RvcC1jb2xvcj0icmdiYSgxMDAsIDEwMCwgMjU1LCAwLjEpIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9PSIxMDAlIiBzdG9wLWNvbG9yPSJ0cmFuc3BhcmVudCIgLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9IndhdmVHcmFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9InJnYmEoMTAwLCAxMDAsIDI1NSwgMC4xNSkiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0idHJhbnNwYXJlbnQiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSIyNTAiIHI9IjIyNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwMCwgMTAwLCAyNTUsIDAuMTUpIiBzdHJva2Utd2lkdGg9IjAuNSIgLz4KICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSIyNTAiIHI9IjE1MCIgZmlsbD0idXJsKCNncmlkR3JhZCkiIHN0cm9rZT0icmdiYSgxMDAsIDEwMCwgMjU1LCAwLjEpIiBzdHJva2Utd2lkdGg9IjAuNSIgLz4KICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSIyNTAiIHI9Ijc1IiBmaWxsPSJ1cmwoI2dyaWRHcmFkKSIgc3Ryb2tlPSJyZ2JhKDEwMCwgMTAwLCAyNTUsIDAuMSkiIHN0cm9rZS13aWR0aD0iMC41IiAvPgogIDxnIHN0cm9rZT0icmdiYSgxMDAsIDEwMCwgMjU1LCAwLjEpIiBzdHJva2Utd2lkdGg9IjAuNSI+CiAgICA8cGF0aCBkPSJNMCAyNTAgTDUwMCAyNTAiIC8+CiAgICA8cGF0aCBkPSJNMjUwIDAgTDI1MCA1MDAiIC8+CiAgPC9nPgogIDxnIHN0cm9rZT0icmdiYSgxMDAsIDEwMCwgMjU1LCAwLjEpIiBzdHJva2Utd2lkdGg9IjAuNSMgMDA5O0A5MCgyNTAgMjUwKSI+CiAgICA8cGF0aCBkPSJNMCAyNTAgTDUwMCAyNTAiIC8+CiAgICA8cGF0aCBkPSJNMjUwIDAgTDI1MCA1MDAiIC8+CiAgPC9nPgogIDxjaXJjbGUgY3g9IjI1MCIgY3k9IjUiIHI9IjIuNSIgZmlsbD0icmdiYSgxMDAsIDEwMCwgMjU1LCAwLjUpIi8+CiAgPGNpcmNsZSBjeD0iMjUwIiBjeT0iNDk1IiByPSIyLjUiIGZpbGwPSInyZ2JhKDEwMCwgMTAwLCAyNTUsIDAuNSkiLz4KICA8Y2lyY2xlIGN4PSI1IiBjeT0iMjUwIiByPSIyLjUiIGZpbGwPSInyZ2JhKDEwMCwgMTAwLCAyNTUsIDAuNSkiLz4KICA8Y2lyY2xlIGN4PSI0OTUiIGN5PSIyNTAiIHIPSIyLjUiIGZpbGwPSInyZ2JhKDEwMCwgMTAwLCAyNTUsIDAuNSkiLz4KICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSIyNTAiIHI9IjUiIGZpbGwPSInyZ2JhKDEwMCwgMTAwLCAyNTUsIDAuNykiLz4KICA8ZyBzdHJva2U9InVybCgjd2F2ZUdyYWQpIiBzdHJva2Utd2lkdGg9IjIiPgogICAgPHBhdGggZD0iTTI1MCA1MCBMMjUwIDQ1MCIvPgogICAgPHBhdGggZD0iTTI0NSA1MCBMMjQ1IDQ1MCIvPgogICAgPHBhdGggZD0iTTI1NSA1MCBMMjU1IDQ1MCIvPgogICAgPHBhdGggZD0iTTIzMCA1MCBMMjMwIDQ1MCIgc3Ryb2tlLW9wYWNpdHk9IjAuNSIvPgogICAgPHBhdGggZD0iTTI3MCA1MCBMMjcwIDQ1MCIgc3Ryb2tlLW9wYWNpdHk9IjAuNSIvPgogIDwvZz4KPC9zdmc+'),
+                radial-gradient(circle at center, transparent 30%, #0b0f19 90%);
+            background-size: 80vh 80vh, cover;
+            background-position: center, center;
+            background-repeat: no-repeat, no-repeat;
+        }
+
+        /* Lớp chấm phát sáng nhỏ */
+        .background-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(100, 100, 255, 0.15) 1px, transparent 1px),
+                radial-gradient(circle at 30% 70%, rgba(100, 100, 255, 0.15) 1px, transparent 1px),
+                radial-gradient(circle at 80% 40%, rgba(100, 100, 255, 0.15) 1px, transparent 1px);
+            background-size: 100px 100px;
+            background-repeat: repeat;
+        }
+
+        /* Giao diện chính */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            width: 100%;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 51, 51, 0.2);
+        }
+
+        .brand-top {
+            color: #ff3333; /* Màu đỏ tươi hơn */
+            font-size: 28px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 0 0 12px rgba(255, 51, 51, 0.8); /* Hiệu ứng phát sáng */
+            letter-spacing: 1.5px;
+        }
+
+        .subtitle-top {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 11px;
+            font-weight: 300;
+            text-transform: uppercase;
+            margin-top: 5px;
+            letter-spacing: 1.5px;
+        }
+
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 5vh;
+            width: 100%;
+        }
+
+        .main-title {
+            color: #fff;
+            font-size: 56px;
+            font-weight: 700;
+            font-style: italic; /* Nghiêng để khớp mẫu */
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Hiệu ứng phát sáng mờ */
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .main-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            max-width: 650px;
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 45px;
+        }
+
+        /* Button Group */
+        .button-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 18px 50px;
+            border-radius: 50px; /* Hình elip mạnh */
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #a14fff, #4a7dff);
+            color: #fff;
+            border: none;
+            box-shadow: 0 5px 20px rgba(161, 79, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 5px 25px rgba(161, 79, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Bottom Arrow */
+        .scroll-arrow {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+            margin-top: 20px;
+            opacity: 0.7;
+        }
+
+        /* Floating Icons */
+        .floating-icons {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .icon-chat, .icon-telegram {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 28px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .icon-chat {
+            background: linear-gradient(135deg, #5b86e5, #36d1dc);
+        }
+
+        .icon-telegram {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+        }
+
+        .icon-chat:hover, .icon-telegram:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Media Queries cho Mobile */
+        @media (max-width: 600px) {
+            .brand-top { font-size: 26px; letter-spacing: 1px; }
+            .subtitle-top { font-size: 10px; letter-spacing: 1px; }
+            .main-title { font-size: 40px; margin-bottom: 15px; }
+            .main-description { font-size: 14px; max-width: 90%; margin-bottom: 35px; }
+            .button-group { flex-direction: column; gap: 12px; width: 100%; max-width: 300px; }
+            .btn-primary, .btn-secondary { width: 100%; padding: 16px; font-size: 15px; }
+            .floating-icons { bottom: 20px; right: 10px; gap: 10px; }
+            .icon-chat, .icon-telegram { width: 50px; height: 50px; font-size: 24px; }
+            .background-grid { background-size: 100% 100%; } /* Lưới toàn màn hình trên mobile */
+        }
+    </style>
+</head>
+<body>
+    <div class="background-layers"></div>
+    <div class="background-grid"></div>
+    <div class="background-dots"></div>
+    
+    <div class="main-container">
+        <header>
+            <div class="brand-top">PHẠM HOÀ</div>
+            <div class="subtitle-top">DIGITAL & SOCIAL MEDIA SOLUTIONS</div>
+        </header>
+
+        <main>
+            <h1 class="main-title">Phạm Hoà</h1>
+            <p class="main-description">
+                Cung cấp phần mềm hỗ trợ game chất lượng – Dịch vụ Marketing & quảng cáo chiến lược phủ sóng toàn cầu – Thu mua, mua bán acc Free Fire uy tín, nhanh gọn, giá tốt.
+            </p>
+            <div class="button-group">
+                <a href="#" class="btn-primary">Đánh giá</a>
+                <a href="#" class="btn-secondary">Hỗ trợ</a>
+            </div>
+        </main>
+
+        <div class="scroll-arrow"><i class="fas fa-chevron-down"></i></div>
+
+        <div class="floating-icons">
+            <a href="#" class="icon-chat"><i class="far fa-comment-dots"></i></a>
+            <a href="#" class="icon-telegram"><i class="fab fa-telegram-plane"></i></a>
+        </div>
+    </div>
+</body>
+</html>
